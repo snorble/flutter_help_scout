@@ -46,6 +46,19 @@ public class SwiftFlutterHelpScoutPlugin: NSObject, FlutterPlugin {
       
         result("Beacon reset successfully!")
     }
+
+    else if(call.method.elementsEqual("openContact")){
+     
+        let beaconId = arguments!["beaconId"] as? String
+        
+        // open beacon
+//        openBeacon(beaconId: beaconId!)
+        
+        // open contact
+        openContact(beaconId: beaconId!)
+      
+        result("Beacon openContact successfully!")
+    }
     
   }
     
@@ -88,5 +101,9 @@ public class SwiftFlutterHelpScoutPlugin: NSObject, FlutterPlugin {
   public func resetBeacon(){
     HSBeacon.reset()
   }
-    
+
+  public func openContact(beaconId: String){
+      let settings = HSBeaconSettings(beaconId: beaconId)
+      HSBeacon.navigate("/ask/message/", beaconSettings: settings)
+  }
 }

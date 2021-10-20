@@ -3,7 +3,10 @@ package dev.kelvinforteta.flutter_help_scout;
 import android.content.Context;
 
 import com.helpscout.beacon.Beacon;
+import com.helpscout.beacon.model.BeaconScreens;
 import com.helpscout.beacon.ui.BeaconActivity;
+
+import java.util.ArrayList;
 
 class BeaconHelpers {
 
@@ -55,5 +58,9 @@ class BeaconHelpers {
                          String company,
                          String jobTitle){
         Beacon.identify(email, name, company, jobTitle, avatar);
+    }
+
+    public void openContact(Context context){
+        BeaconActivity.open(context,BeaconScreens.CONTACT_FORM_SCREEN, new ArrayList<String>());
     }
 }

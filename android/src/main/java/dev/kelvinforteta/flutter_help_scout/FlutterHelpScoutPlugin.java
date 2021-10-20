@@ -68,7 +68,10 @@ public class FlutterHelpScoutPlugin implements FlutterPlugin, MethodCallHandler,
       beaconHelpers.logout();
       result.success("Beacon successfully cleared!");
     }
-
+    else if(call.method.equals("openContact")){
+      beaconHelpers.openContact(context);
+      result.success("Beacon successfully openContact!");
+    }
   }
 
   @Override
