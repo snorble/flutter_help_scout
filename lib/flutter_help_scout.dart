@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/services.dart';
 
 class FlutterHelpScout {
@@ -12,6 +13,10 @@ class FlutterHelpScout {
 
   /// This method will initialize the beacon.
   Future<String?> initialize() async {
+    // On iOS we should call the 'open' method directly
+    if (Platform.isIOS) {
+      return 'OK';
+    }
     var data = <String, dynamic>{
       'beaconId': beaconId,
     };
