@@ -50,13 +50,19 @@ public class FlutterHelpScoutPlugin implements FlutterPlugin, MethodCallHandler,
     // this will initialize the beacon
     if (call.method.equals("initialize")) {
       beaconHelpers.initialize((String) arguments.get("beaconId"));
-      beaconHelpers.identity((String) arguments.get("email"), (String) arguments.get("name"), (String) arguments.get("avatar"), (String) arguments.get("company"), (String) arguments.get("jobTitle"));
       result.success("Beacon successfully initialized!");
     }
+
     // open the beacon
     else if(call.method.equals("openBeacon")){
       beaconHelpers.openBeacon(context);
       result.success("Beacon successfully opened!");
+    }
+
+    // identify the beacon
+    else if(call.method.equals("identifyBeacon")){
+      beaconHelpers.identity((String) arguments.get("email"), (String) arguments.get("name"), (String) arguments.get("avatar"), (String) arguments.get("company"), (String) arguments.get("jobTitle"));
+      result.success("Beacon successfully identified!");
     }
 
     else if(call.method.equals("logoutBeacon")){

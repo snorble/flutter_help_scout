@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/services.dart';
 
 class FlutterHelpScout {
@@ -8,31 +9,16 @@ class FlutterHelpScout {
   /// This is your beacon ID
   final String beaconId;
 
-  /// This is the user's name
-  final String name;
-
-  /// This is the user's email address
-  final String email;
-
-  final String? avatar;
-
-  final Map<String, String> attributes;
-
-  FlutterHelpScout(
-      {this.email = '',
-      this.name = '',
-      required this.beaconId,
-      this.avatar,
-      this.attributes = const {}});
+  FlutterHelpScout({required this.beaconId});
 
   /// This method will initialize the beacon.
   Future<String?> initialize() async {
+    // On iOS we should call the 'open' method directly
+    if (Platform.isIOS) {
+      return 'OK';
+    }
     var data = <String, dynamic>{
       'beaconId': beaconId,
-      'email': email,
-      'name': name,
-      'avatar': avatar,
-      'attribute': attributes
     };
 
     try {
@@ -53,7 +39,7 @@ class FlutterHelpScout {
 
   Future<String?> open({String? beaconId}) async {
     var data = <String, dynamic>{
-      'beaconId': beaconId,
+      'beaconId': beaconId ?? this.beaconId,
     };
 
     try {
@@ -65,6 +51,34 @@ class FlutterHelpScout {
       return result;
     } on PlatformException catch (e) {
       print('Unable to open beacon: ${e.toString()}');
+    }
+  }
+
+
+  /// Authenticates your user
+
+  Future<String?> identify({
+    String email = '',
+      String name = '',
+      String? avatar,
+      Map<String, dynamic> attributes = const {},
+  }) async {
+    var data = <String, dynamic>{
+      'email': email,
+      'name': name,
+      'avatar': avatar,
+      'attribute': attributes
+    };
+
+    try {
+      final String? result = await _channel.invokeMethod(
+        'identifyBeacon',
+        data,
+      );
+
+      return result;
+    } on PlatformException catch (e) {
+      print('Unable to identify the user: ${e.toString()}');
     }
   }
 
