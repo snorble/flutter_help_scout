@@ -29,6 +29,11 @@ public class SwiftFlutterHelpScoutPlugin: NSObject, FlutterPlugin {
         openBeacon(beaconId: beaconId!)
       
         result("Beacon open successfully!")
+    } else if(call.method.elementsEqual("identifyBeacon")){
+        // initialize beacon providing arguments to identify the user
+        initializeBeacon(arguments: arguments!)
+
+        result("Beacon identifyBeacon successfully!")
     }
 
     else if(call.method.elementsEqual("logoutBeacon")){
