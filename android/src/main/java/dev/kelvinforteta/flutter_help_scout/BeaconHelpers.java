@@ -7,6 +7,7 @@ import com.helpscout.beacon.model.BeaconScreens;
 import com.helpscout.beacon.ui.BeaconActivity;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 class BeaconHelpers {
 
@@ -63,4 +64,6 @@ class BeaconHelpers {
     public void openContact(Context context){
         BeaconActivity.open(context,BeaconScreens.CONTACT_FORM_SCREEN, new ArrayList<String>());
     }
+
+    public void setSessionAttributes(Map<String, String> attributes){ Beacon.setSessionAttributes(attributes); }
 }

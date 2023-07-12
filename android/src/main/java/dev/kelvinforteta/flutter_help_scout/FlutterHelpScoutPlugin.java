@@ -78,6 +78,10 @@ public class FlutterHelpScoutPlugin implements FlutterPlugin, MethodCallHandler,
       beaconHelpers.openContact(context);
       result.success("Beacon successfully openContact!");
     }
+    else if (call.method.equals("setSessionAttributes")) {
+      beaconHelpers.setSessionAttributes((Map<String, String>) arguments.get("attributes"));
+      result.success("Session Attributes successfully added!");
+    }
   }
 
   @Override

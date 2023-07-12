@@ -128,4 +128,21 @@ class FlutterHelpScout {
       print('Unable to open beacon: ${e.toString()}');
     }
   }
+
+  Future<String?> setSessionAttributes(Map<String, String> attributes) async {
+    try {
+
+      final data = <String, Map<String, String>>{
+        'attributes': attributes,
+      };
+
+      final String? result = await _channel.invokeMethod(
+          'setSessionAttributes', data
+      );
+
+      return result;
+    } on Exception catch (e) {
+      print('Unable to set session attributes: ${e.toString()}');
+    }
+  }
 }
