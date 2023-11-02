@@ -57,8 +57,12 @@ class BeaconHelpers {
                          String name,
                          String avatar,
                          String company,
-                         String jobTitle){
+                         String jobTitle,
+                         Map<String, String> attributes){
         Beacon.identify(email, name, company, jobTitle, avatar);
+
+        // Add Attributes
+        attributes.forEach(Beacon::addAttributeWithKey);
     }
 
     public void openContact(Context context){

@@ -67,7 +67,7 @@ class FlutterHelpScout {
       'email': email,
       'name': name,
       'avatar': avatar,
-      'attribute': attributes
+      'attributes': attributes
     };
 
     try {

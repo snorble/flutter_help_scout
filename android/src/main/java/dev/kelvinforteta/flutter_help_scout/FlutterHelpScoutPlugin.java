@@ -61,7 +61,7 @@ public class FlutterHelpScoutPlugin implements FlutterPlugin, MethodCallHandler,
 
     // identify the beacon
     else if(call.method.equals("identifyBeacon")){
-      beaconHelpers.identity((String) arguments.get("email"), (String) arguments.get("name"), (String) arguments.get("avatar"), (String) arguments.get("company"), (String) arguments.get("jobTitle"));
+      beaconHelpers.identity((String) arguments.get("email"), (String) arguments.get("name"), (String) arguments.get("avatar"), (String) arguments.get("company"), (String) arguments.get("jobTitle"), (Map<String, String>) arguments.get("attributes"));
       result.success("Beacon successfully identified!");
     }
 
