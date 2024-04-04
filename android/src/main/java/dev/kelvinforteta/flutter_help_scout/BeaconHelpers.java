@@ -70,4 +70,10 @@ class BeaconHelpers {
     }
 
     public void setSessionAttributes(Map<String, String> attributes){ Beacon.setSessionAttributes(attributes); }
+
+    public void openArticle(Context context, String articleId){
+        ArrayList<String> articleList = new ArrayList<String>();
+        articleList.add(articleId);
+        BeaconActivity.open(context, BeaconScreens.ARTICLE_SCREEN, articleList);
+    }
 }

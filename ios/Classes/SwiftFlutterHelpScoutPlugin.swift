@@ -64,6 +64,27 @@ public class SwiftFlutterHelpScoutPlugin: NSObject, FlutterPlugin {
       
         result("Beacon openContact successfully!")
     }
+
+    else if(call.method.elementsEqual("setSessionAttributes")){
+
+            let beaconId = arguments!["beaconId"] as? String
+            let attributes = arguments!["attributes"] as? [String: String]
+
+            setSessionAttributes(beaconId: beaconId!, attributes: attributes!)
+
+            result("Session Attributes successfully added!")
+        }
+      
+      else if(call.method.elementsEqual("openArticle")){
+       
+          let beaconId = arguments!["beaconId"] as? String
+          let articleId = arguments!["articleId"] as? String
+          
+          // open article
+          openArticle(beaconId: beaconId!, articleId: articleId!)
+        
+          result("Beacon openArticle successfully!")
+      }
     
   }
     
@@ -111,4 +132,26 @@ public class SwiftFlutterHelpScoutPlugin: NSObject, FlutterPlugin {
       let settings = HSBeaconSettings(beaconId: beaconId)
       HSBeacon.navigate("/ask/message/", beaconSettings: settings)
   }
+
+  public func setSessionAttributes(beaconId: String, attributes: [String: String]) {
+      //Save Session Attributes in UserDefaults
+      let defaults = UserDefaults.standard
+      defaults.set(attributes, forKey: "HelpScoutSessionAttributes")
+  }
+    
+    public func openArticle(beaconId: String, articleId: String){
+        let settings = HSBeaconSettings(beaconId: beaconId)
+        HSBeacon.openArticle(articleId, beaconSettings: settings)
+    }
+}
+
+extension SwiftFlutterHelpScoutPlugin: HSBeaconDelegate {
+    public func sessionAttributes() -> [String: String] {
+        let defaults = UserDefaults.standard
+        
+        //Retrieve Session Attributes in UserDefaults
+        let sessionAttributesDict = defaults.object(forKey: "HelpScoutSessionAttributes") as? [String: String] ?? [String: String]()
+
+        return sessionAttributesDict
+    }
 }

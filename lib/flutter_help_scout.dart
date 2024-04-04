@@ -129,10 +129,11 @@ class FlutterHelpScout {
     }
   }
 
-  Future<String?> setSessionAttributes(Map<String, String> attributes) async {
+  Future<String?> setSessionAttributes(Map<String, String> attributes, {String? beaconId}) async {
     try {
 
-      final data = <String, Map<String, String>>{
+      final data = <String, dynamic>{
+        'beaconId': beaconId ?? this.beaconId,
         'attributes': attributes,
       };
 
@@ -143,6 +144,21 @@ class FlutterHelpScout {
       return result;
     } on Exception catch (e) {
       print('Unable to set session attributes: ${e.toString()}');
+    }
+  }
+
+  Future<String?> openArticle(String articleId, {String? beaconId}) async {
+    try {
+      final data = <String, dynamic>{
+        'beaconId': beaconId ?? this.beaconId,
+        'articleId': articleId,
+      };
+
+      final String? result = await _channel.invokeMethod('openArticle', data);
+
+      return result;
+    } on PlatformException catch (e) {
+      print('Unable to open beacon Article: ${e.toString()}');
     }
   }
 }
